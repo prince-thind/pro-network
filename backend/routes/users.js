@@ -23,4 +23,14 @@ router.post(
   userController.uploadProfilePicture
 );
 
+// @route   GET /api/users/search
+// @desc    Search for users
+// @access  Public
+router.get("/search", userController.searchUsers);
+
+// @route   GET /api/users/trending
+// @desc    Get trending users
+// @access  Public
+router.get("/trending", userController.getTrendingUsers);
+
 module.exports = router;

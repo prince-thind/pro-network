@@ -62,3 +62,41 @@ exports.uploadProfilePicture = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+// @desc    Search for users
+// @route   GET /api/users/search
+// @access  Public
+exports.searchUsers = async (req, res) => {
+  try {
+    const keyword = req.query.keyword
+      ? {
+          name: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const users = await User.find({ ...keyword }).select("-password");
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+// @desc    Get trending users
+// @route   GET /api/users/trending
+// @access  Public
+exports.getTrendingUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+      .sort({ followers: -1 })
+      .limit(10)
+      .select("-password");
+    res.json(users);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};

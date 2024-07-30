@@ -1,5 +1,5 @@
-const Post = require('../models/Post');
-const { validationResult } = require('express-validator');
+const Post = require("../models/Post");
+const { validationResult } = require("express-validator");
 
 // @desc    Create a new post
 // @route   POST /api/posts
@@ -22,7 +22,7 @@ exports.createPost = async (req, res) => {
     res.json(post);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 };
 
@@ -35,7 +35,7 @@ exports.getPosts = async (req, res) => {
     res.json(posts);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
   }
 };
 
@@ -47,15 +47,50 @@ exports.getPostById = async (req, res) => {
     const post = await Post.findById(req.params.id);
 
     if (!post) {
-      return res.status(404).json({ msg: 'Post not found' });
+      return res.status(404).json({ msg: "Post not found" });
     }
 
     res.json(post);
   } catch (err) {
     console.error(err.message);
-    if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Post not found' });
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post not found" });
     }
-    res.status(500).send('Server error');
+    res.status(500).send("Server error");
+  }
+};
+
+// @desc    Search for posts
+// @route   GET /api/posts/search
+// @access  Public
+exports.searchPosts = async (req, res) => {
+  try {
+    const keyword = req.query.keyword
+      ? {
+          text: {
+            $regex: req.query.keyword,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const posts = await Post.find({ ...keyword });
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+// @desc    Get trending posts
+// @route   GET /api/posts/trending
+// @access  Public
+exports.getTrendingPosts = async (req, res) => {
+  try {
+    const posts = await Post.find().sort({ likes: -1 }).limit(10);
+    res.json(posts);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
   }
 };

@@ -43,4 +43,15 @@ router.put("/unlike/:id", auth, postInteractionController.unlikePost);
 // @access  Private
 router.put("/undislike/:id", auth, postInteractionController.undislikePost);
 
+// @route   GET /api/posts/search
+// @desc    Search for posts
+// @access  Public
+router.get("/search", postController.searchPosts);
+
+// @route   GET /api/posts/trending
+// @desc    Get trending posts
+// @access  Public
+router.get('/trending', postController.getTrendingPosts);
+
+
 module.exports = router;
