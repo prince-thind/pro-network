@@ -42,3 +42,23 @@ exports.updateMe = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+// @desc    Upload profile picture
+// @route   POST /api/users/me/profilePicture
+// @access  Private
+exports.uploadProfilePicture = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    if (user) {
+      user.profilePicture = req.file.path;
+      await user.save();
+      return res.json(user);
+    }
+
+    res.status(400).json({ msg: "User not found" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
