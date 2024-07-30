@@ -22,11 +22,13 @@ mongoose
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/users', require('./routes/users'));
 app.use('/api/posts', require('./routes/posts'));
+app.use('/api/comments', require('./routes/comments'));
+app.use('/api/notifications', require('./routes/notifications'));
 
 app.get('/', (req, res) => {
   res.send('Hello, Pro-Network!');
 });
 
 app.listen(port, () => {
-  console.log();
+  console.log(`Server is running on port ${port}`);
 });
