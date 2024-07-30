@@ -1,0 +1,21 @@
+Endpoint,Method,Description,Access
+/api/auth/register,POST,Register a new user,Public
+/api/auth/login,POST,Authenticate user & get token,Public
+/api/users/me,GET,Get current user's profile,Private
+/api/users/me,PUT,Update user profile,Private
+/api/users/me/profilePicture,POST,Upload profile picture,Private
+/api/users/search,GET,Search for users,Public
+/api/users/trending,GET,Get trending users,Public
+/api/posts,POST,Create a new post,Private
+/api/posts,GET,Get all posts,Private
+/api/posts/:id,GET,Get post by ID,Private
+/api/posts/like/:id,PUT,Like a post,Private
+/api/posts/dislike/:id,PUT,Dislike a post,Private
+/api/posts/unlike/:id,PUT,Remove like from a post,Private
+/api/posts/undislike/:id,PUT,Remove dislike from a post,Private
+/api/posts/search,GET,Search for posts,Public
+/api/posts/trending,GET,Get trending posts,Public
+/api/comments,POST,Add a comment to a post,Private
+/api/comments/:postId,GET,Get comments for a post,Private
+/api/notifications,GET,Get notifications for a user,Private
+/api/notifications/:id,PUT,Mark notification as read,Private
