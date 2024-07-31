@@ -1,7 +1,10 @@
 // components/LoginForm.tsx
+import { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
 import { loginUser, UserData } from '../lib/api';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
 const Form = styled.form`
   display: flex;
@@ -36,17 +39,29 @@ const Button = styled.button`
 const ErrorMessage = styled.p`
   color: red;
   font-size: 0.875rem;
+  text-align: center;
 `;
 
 const LoginForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<UserData>();
+  const router = useRouter();
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<UserData> = async (data) => {
     try {
       const response = await loginUser(data);
-      console.log(response);
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+        router.push('/homepage');
+      } else {
+        setLoginError('Login failed. Please check your credentials.');
+      }
     } catch (error) {
-      console.error(error);
+      if (axios.isAxiosError(error) && error.response?.status === 401) {
+        setLoginError('Invalid email or password. Please try again.');
+      } else {
+        setLoginError('An unexpected error occurred. Please try again.');
+      }
     }
   };
 
@@ -59,6 +74,8 @@ const LoginForm = () => {
       {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
       
       <Button type="submit">Login</Button>
+
+      {loginError && <ErrorMessage>{loginError}</ErrorMessage>}
     </Form>
   );
 };
