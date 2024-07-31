@@ -1,6 +1,7 @@
 // pages/homepage.tsx
 import styled from 'styled-components';
 import Container from '../components/Container';
+import withAuth from '../components/WithAuth';
 
 const Heading = styled.h1`
   font-size: 2.5rem;
@@ -18,4 +19,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default withAuth(HomePage);
