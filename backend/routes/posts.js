@@ -19,6 +19,11 @@ router.post(
 // @access  Private
 router.get("/", auth, postController.getPosts);
 
+// @route   GET /api/posts/trending
+// @desc    Get trending posts
+// @access  Public
+router.get("/trending", postController.getTrendingPosts);
+
 // @route   GET /api/posts/:id
 // @desc    Get post by ID
 // @access  Private
@@ -47,11 +52,5 @@ router.put("/undislike/:id", auth, postInteractionController.undislikePost);
 // @desc    Search for posts
 // @access  Public
 router.get("/search", postController.searchPosts);
-
-// @route   GET /api/posts/trending
-// @desc    Get trending posts
-// @access  Public
-router.get('/trending', postController.getTrendingPosts);
-
 
 module.exports = router;
