@@ -1,6 +1,6 @@
 // pages/homepage.tsx
-import styled from 'styled-components';
-import Container from '../components/common/Container';
+import styled from "styled-components";
+import Container from "../components/layout/Container";
 
 const Heading = styled.h1`
   font-size: 2.5rem;
@@ -18,4 +18,4 @@ const HomePage = () => {
   );
 };
 
-export default (HomePage);
+export default HomePage;

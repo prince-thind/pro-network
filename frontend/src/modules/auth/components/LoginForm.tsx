@@ -1,27 +1,23 @@
 // src/modules/auth/components/LoginForm.tsx
-import { useState, useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import styled from "styled-components";
-import { loginUser } from "../../../services/authService";
-import { setUser } from "../../../store/authSlice";
-import { useRouter } from "next/router";
-import axios from "axios";
-import { RootState } from "../../../store/store";
-
-const FormContainer = styled.div`
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  background-color: #ffffff;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-`;
+import { useState, useEffect } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import { loginUser } from '../../../services/authService';
+import { setUser } from '../../../store/authSlice';
+import { useRouter } from 'next/router';
+import axios from 'axios';
+import { RootState } from '../../../store/store';
+import AuthLayout from '../../../layouts/AuthLayout';
 
 const Form = styled.form`
   display: flex;
+  flex:1;
   flex-direction: column;
+  align-items:center;
+  justify-content:center;
   gap: 15px;
+  width: 100%;
 `;
 
 const Input = styled.input`
@@ -64,11 +60,7 @@ interface LoginFormInputs {
 }
 
 const LoginForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormInputs>();
+  const { register, handleSubmit, formState: { errors } } = useForm<LoginFormInputs>();
   const dispatch = useDispatch();
   const router = useRouter();
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -76,7 +68,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (token) {
-      router.push("/homepage"); // Redirect to homepage if already authenticated
+      router.push('/homepage'); // Redirect to homepage if already authenticated
     }
   }, [token, router]);
 
@@ -85,42 +77,33 @@ const LoginForm = () => {
       const response = await loginUser(data);
       if (response.token) {
         dispatch(setUser({ email: data.email, token: response.token }));
-        router.push("/homepage");
+        router.push('/homepage');
       } else {
-        setLoginError("Login failed. Please check your credentials.");
+        setLoginError('Login failed. Please check your credentials.');
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response?.status === 401) {
-        setLoginError("Invalid email or password. Please try again.");
+        setLoginError('Invalid email or password. Please try again.');
       } else {
-        setLoginError("An unexpected error occurred. Please try again.");
+        setLoginError('An unexpected error occurred. Please try again.');
       }
     }
   };
 
   return (
-    <FormContainer>
+    <AuthLayout>
       <Form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register("email", { required: "Email is required" })}
-          placeholder="Email"
-        />
+        <Input {...register('email', { required: 'Email is required' })} placeholder="Email" />
         {errors.email && <ErrorMessage>{errors.email.message}</ErrorMessage>}
-
-        <Input
-          {...register("password", { required: "Password is required" })}
-          type="password"
-          placeholder="Password"
-        />
-        {errors.password && (
-          <ErrorMessage>{errors.password.message}</ErrorMessage>
-        )}
-
+        
+        <Input {...register('password', { required: 'Password is required' })} type="password" placeholder="Password" />
+        {errors.password && <ErrorMessage>{errors.password.message}</ErrorMessage>}
+        
         <Button type="submit">Login</Button>
 
         {loginError && <ErrorMessage>{loginError}</ErrorMessage>}
       </Form>
-    </FormContainer>
+    </AuthLayout>
   );
 };
 
