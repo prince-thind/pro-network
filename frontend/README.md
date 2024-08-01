@@ -1,36 +1,127 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Planned Strucutre of the project
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+/frontend
+├── /public
+│   ├── /images
+│   ├── favicon.ico
+│   └── index.html
+├── /src
+│   ├── /assets
+│   │   ├── /fonts
+│   │   └── /images
+│   ├── /components
+│   │   ├── /common
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   └── Spinner.tsx
+│   │   ├── /layout
+│   │   │   ├── Header.tsx
+│   │   │   ├── Footer.tsx
+│   │   │   ├── Sidebar.tsx
+│   │   │   └── Container.tsx
+│   │   ├── /forms
+│   │   │   ├── LoginForm.tsx
+│   │   │   ├── RegisterForm.tsx
+│   │   │   └── ProfileForm.tsx
+│   │   ├── /posts
+│   │   │   ├── Post.tsx
+│   │   │   ├── PostList.tsx
+│   │   │   └── PostDetails.tsx
+│   │   ├── /notifications
+│   │   │   ├── Notification.tsx
+│   │   │   └── NotificationList.tsx
+│   │   └── /ui
+│   │       ├── Card.tsx
+│   │       ├── Avatar.tsx
+│   │       ├── Dropdown.tsx
+│   │       └── Tooltip.tsx
+│   ├── /contexts
+│   │   ├── AuthContext.tsx
+│   │   └── ThemeContext.tsx
+│   ├── /hooks
+│   │   ├── useAuth.ts
+│   │   ├── useFetch.ts
+│   │   ├── useTheme.ts
+│   │   └── useWindowSize.ts
+│   ├── /layouts
+│   │   ├── AuthLayout.tsx
+│   │   ├── DashboardLayout.tsx
+│   │   └── MainLayout.tsx
+│   ├── /modules
+│   │   ├── /auth
+│   │   │   ├── components
+│   │   │   │   ├── LoginForm.tsx
+│   │   │   │   ├── RegisterForm.tsx
+│   │   │   │   └── ForgotPasswordForm.tsx
+│   │   │   ├── pages
+│   │   │   │   ├── login.tsx
+│   │   │   │   ├── register.tsx
+│   │   │   │   └── forgot-password.tsx
+│   │   │   └── /services
+│   │   │       └── authService.ts
+│   │   ├── /posts
+│   │   │   ├── components
+│   │   │   │   ├── PostList.tsx
+│   │   │   │   └── PostDetails.tsx
+│   │   │   ├── pages
+│   │   │   │   ├── index.tsx
+│   │   │   │   └── [postId].tsx
+│   │   │   └── /services
+│   │   │       └── postService.ts
+│   │   ├── /notifications
+│   │   │   ├── components
+│   │   │   │   ├── NotificationList.tsx
+│   │   │   │   └── NotificationItem.tsx
+│   │   │   ├── pages
+│   │   │   │   └── index.tsx
+│   │   │   └── /services
+│   │   │       └── notificationService.ts
+│   │   └── /profile
+│   │       ├── components
+│   │       │   ├── ProfileForm.tsx
+│   │       │   ├── ProfileDetails.tsx
+│   │       │   └── ProfilePicture.tsx
+│   │       ├── pages
+│   │       │   ├── index.tsx
+│   │       │   └── edit.tsx
+│   │       └── /services
+│   │           └── profileService.ts
+│   ├── /pages
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── index.tsx
+│   │   └── 404.tsx
+│   ├── /services
+│   │   ├── api.ts
+│   │   ├── auth.ts
+│   │   └── httpClient.ts
+│   ├── /store
+│   │   ├── store.ts
+│   │   ├── authSlice.ts
+│   │   ├── postSlice.ts
+│   │   ├── notificationSlice.ts
+│   │   └── profileSlice.ts
+│   ├── /styles
+│   │   ├── GlobalStyles.ts
+│   │   ├── themes.ts
+│   │   └── mixins.ts
+│   ├── /utils
+│   │   ├── helpers.ts
+│   │   └── constants.ts
+│   ├── /types
+│   │   ├── index.d.ts
+│   │   ├── auth.d.ts
+│   │   ├── post.d.ts
+│   │   ├── notification.d.ts
+│   │   └── profile.d.ts
+│   └── index.tsx
+├── .env
+├── .eslintrc.js
+├── .prettierrc
+├── package.json
+├── tsconfig.json
+└── README.md
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```

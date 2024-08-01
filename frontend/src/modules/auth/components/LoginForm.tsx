@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import styled from 'styled-components';
-import { loginUser, UserData } from '../lib/api';
+import { loginUser, UserData } from '../../../services/api';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 

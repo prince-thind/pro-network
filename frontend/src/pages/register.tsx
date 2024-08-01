@@ -1,6 +1,6 @@
 // pages/register.tsx
-import Layout from '../components/Layout';
-import RegisterForm from '../components/RegisterForm';
+import Layout from '../layouts/MainLayout';
+import RegisterForm from '../modules/auth/components/RegisterForm';
 
 const Register = () => {
   return (

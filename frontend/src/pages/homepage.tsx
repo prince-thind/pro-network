@@ -1,7 +1,7 @@
 // pages/homepage.tsx
 import styled from 'styled-components';
-import Container from '../components/Container';
-import withAuth from '../components/WithAuth';
+import Container from '../components/common/Container';
+import withAuth from '../modules/auth/components/WithAuth';
 
 const Heading = styled.h1`
   font-size: 2.5rem;

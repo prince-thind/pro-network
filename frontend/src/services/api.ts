@@ -1,5 +1,5 @@
 // lib/api.ts
-import axios from "./axios";
+import axios from "./httpClient";
 
 export interface UserData {
   name: string;
