@@ -29,8 +29,8 @@
 - [x] **GET** `/api/posts/trending` - `searchController.getTrendingPosts`: Get trending posts
 - [x] **GET** `/api/posts/search` - `searchController.searchPosts`: Search posts
 - [x] **GET** `/api/posts/:id` - `postController.getPostById`: Get post by ID
-- [ ] **PUT** `/api/posts/:id` - `postController.editPost`: Edit a post
-- [ ] **DELETE** `/api/posts/:id` - `postController.deletePost`: Delete a post
+- [x] **PUT** `/api/posts/:id` - `postController.editPost`: Edit a post
+- [x] **DELETE** `/api/posts/:id` - `postController.deletePost`: Delete a post
 - [x] **POST** `/api/posts/:id/like` - `postInteractionController.likePost`: Like a post
 - [x] **POST** `/api/posts/:id/unlike` - `postInteractionController.unlikePost`: Like a post
 - [x] **POST** `/api/posts/:id/dislike` - `postInteractionController.dilikePost`: Like a post

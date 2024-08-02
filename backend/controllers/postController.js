@@ -99,3 +99,78 @@ exports.getTrendingPosts = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
+
+// PUT /api/posts/:id
+// @access Private
+exports.editPost = async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { text, title, media, tags, visibility, location } = req.body;
+
+  try {
+    // Find the post by ID
+    let post = await Post.findById(req.params.id);
+
+    // Check if post exists
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    // Check if the user is the owner of the post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    // Update the post
+    post = await Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        $set: {
+          text,
+          title,
+          media: media || post.media,
+          tags: tags || post.tags,
+          visibility: visibility || post.visibility,
+          location: location || post.location,
+          edited: true, // Mark the post as edited
+        },
+      },
+      { new: true } // Return the updated post
+    );
+
+    res.json(post);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};
+
+// DELETE /api/posts/:id
+// @access Private
+exports.deletePost = async (req, res) => {
+  try {
+    // Find the post by ID
+    const post = await Post.findById(req.params.id);
+
+    // Check if post exists
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    // Check if the user is the owner of the post
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    // Delete the post
+    await post.deleteOne();
+
+    res.json({ msg: "Post removed" });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server error");
+  }
+};

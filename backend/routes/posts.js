@@ -18,7 +18,7 @@ router.post(
 // @route   GET /api/posts
 // @desc    Get all posts
 // @access  Private
-router.get("/", auth, postController.getPosts);
+router.get("/", postController.getPosts);
 
 // @route   GET /api/posts/trending
 // @desc    Get trending posts
@@ -33,25 +33,31 @@ router.get("/search/", postController.searchPosts);
 // @route   GET /api/posts/:id
 // @desc    Get post by ID
 // @access  Private
-router.get("/:id", auth, postController.getPostById);
+router.get("/:id", postController.getPostById);
 // @route   PUT /api/posts/like/:id
 // @desc    Like a post
 // @access  Private
-router.put("/like/:id", auth, postInteractionController.likePost);
+router.put("/like/:id", postInteractionController.likePost);
 
 // @route   PUT /api/posts/dislike/:id
 // @desc    Dislike a post
 // @access  Private
-router.put("/dislike/:id", auth, postInteractionController.dislikePost);
+router.put("/dislike/:id", postInteractionController.dislikePost);
 
 // @route   PUT /api/posts/unlike/:id
 // @desc    Remove like from a post
 // @access  Private
-router.put("/unlike/:id", auth, postInteractionController.unlikePost);
+router.put("/unlike/:id", postInteractionController.unlikePost);
 
 // @route   PUT /api/posts/undislike/:id
 // @desc    Remove dislike from a post
 // @access  Private
-router.put("/undislike/:id", auth, postInteractionController.undislikePost);
+router.put("/undislike/:id", postInteractionController.undislikePost);
+
+// Edit a post
+router.put("/:id", postController.editPost);
+
+// Delete a post
+router.delete("/:id", postController.deletePost);
 
 module.exports = router;
