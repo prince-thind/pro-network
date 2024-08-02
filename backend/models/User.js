@@ -6,6 +6,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  username: {
+    type: String,
+    unique: true,
+    required: false,
+  },
   email: {
     type: String,
     required: true,
@@ -15,8 +20,27 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  profilePicture: {
+  dob: {
+    type: Date,
+    required: false,
+  },
+  gender: {
     type: String,
+    enum: ["Male", "Female", "Other"],
+    required: false,
+  },
+  pfp: {
+    type: String, // This could store a URL or file path to the profile picture
+    required: false,
+  },
+  shortDescription: {
+    type: String,
+    maxlength: 200,
+    required: false,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
   },
 });
 

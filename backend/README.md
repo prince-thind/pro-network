@@ -2,8 +2,8 @@
 
 ### Authentication and Authorization
 
-- [ ] **POST** `/api/auth/register` - `authController.register`: User registration
-- [ ] **POST** `/api/auth/login` - `authController.login`: User login
+- [x] **POST** `/api/auth/register` - `authController.register`: User registration
+- [x] **POST** `/api/auth/login` - `authController.login`: User login
 - [ ] **POST** `/api/auth/refresh-token` - `authController.refreshToken`: Refresh JWT token
 - [ ] **GET** `/api/auth/verify-email` - `authController.verifyEmail`: Verify user email
 - [ ] **POST** `/api/auth/reset-password` - `authController.resetPassword`: Reset password

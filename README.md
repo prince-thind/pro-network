@@ -199,6 +199,9 @@ JWT_SECRET=your_jwt_secret
 # Port for the server to run on
 PORT=your_port_number
 
+# JWT expiry time
+JWT_EXPIRY=time
+
 
 ## Getting Started
 

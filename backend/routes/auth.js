@@ -1,9 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const { check } = require("express-validator");
+const authController = require("../controllers/authController");
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -17,49 +15,7 @@ router.post(
       min: 6,
     }),
   ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const { name, email, password } = req.body;
-
-    try {
-      let user = await User.findOne({ email });
-
-      if (user) {
-        return res.status(400).json({ msg: "User already exists" });
-      }
-
-      user = new User({
-        name,
-        email,
-        password,
-      });
-
-      await user.save();
-
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
-    }
-  }
+  authController.register
 );
 
 // @route   POST /api/auth/login
@@ -68,50 +24,22 @@ router.post(
 router.post(
   "/login",
   [
-    check("email", "Please include a valid email").isEmail(),
+    check("identifier", "Please include a valid email or username")
+      .not()
+      .isEmpty(),
     check("password", "Password is required").exists(),
   ],
-  async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
+  authController.login
+);
 
-    const { email, password } = req.body;
-
-    try {
-      let user = await User.findOne({ email });
-
-      if (!user) {
-        return res.status(401).json({ msg: "Invalid credentials" });
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password);
-
-      if (!isMatch) {
-        return res.status(401).json({ msg: "Invalid credentials" });
-      }
-
-      const payload = {
-        user: {
-          id: user.id,
-        },
-      };
-
-      jwt.sign(
-        payload,
-        process.env.JWT_SECRET,
-        { expiresIn: "1h" },
-        (err, token) => {
-          if (err) throw err;
-          res.json({ token });
-        }
-      );
-    } catch (err) {
-      console.error(err.message);
-      res.status(500).send("Server error");
-    }
-  }
+router.post("/refresh-token", (req, res) =>
+  res.send("todo: implement refresh-token")
+);
+router.post("/password-reset", (req, res) =>
+  res.send("todo: implement password-reset")
+);
+router.post("/verify-email", (req, res) =>
+  res.send("todo: implement verify-email")
 );
 
 module.exports = router;
