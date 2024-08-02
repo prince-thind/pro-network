@@ -35,9 +35,9 @@
 - [x] **POST** `/api/posts/:id/unlike` - `postInteractionController.unlikePost`: Like a post
 - [x] **POST** `/api/posts/:id/dislike` - `postInteractionController.dilikePost`: Like a post
 - [x] **POST** `/api/posts/:id/undislike` - `postInteractionController.undislikePost`: Unlike a post
-- [ ] **POST** `/api/posts/:id/comment` - `commentController.addComment`: Add a comment
-- [ ] **GET** `/api/posts/:id/comments` - `commentController.getComments`: Get comments for a post
-- [ ] **DELETE** `/api/posts/:id/comment/:commentId` - `commentController.deleteComment`: Delete a comment
+- [x] **POST** `/api/posts/:id/comment` - `commentController.addComment`: Add a comment
+- [x] **GET** `/api/posts/:id/comments` - `commentController.getComments`: Get comments for a post
+- [x] **DELETE** `/api/posts/:id/comment/:commentId` - `commentController.deleteComment`: Delete a comment
 - [ ] **POST** `/api/posts/:id/share` - `postController.sharePost`: Share a post
 - [ ] **POST** `/api/posts/:id/save` - `postController.savePost`: Save a post
 - [ ] **GET** `/api/posts/search` - `postController.searchPosts`: Search posts by tags/keywords

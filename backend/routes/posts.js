@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const { check } = require("express-validator");
-const auth = require("../middleware/auth");
 const postController = require("../controllers/postController");
 const postInteractionController = require("../controllers/postInteractionController");
+const commentController = require("../controllers/commentController");
 
 // @route   POST /api/posts
 // @desc    Create a new post
@@ -59,5 +59,20 @@ router.put("/:id", postController.editPost);
 
 // Delete a post
 router.delete("/:id", postController.deletePost);
+
+// @route   POST /api/posts/:id/comment
+// @desc    Add a comment to a post
+// @access  Private
+router.post("/:id/comment", commentController.addComment);
+
+// @route   GET /api/posts/:id/comments
+// @desc    Get comments for a post
+// @access  Private
+router.get("/:id/comments", commentController.getComments);
+
+// @route   DELETE /api/posts/:id/comment/:commentId
+// @desc    Delete a comment
+// @access  Private
+router.delete("/:id/comment/:commentId", commentController.deleteComment);
 
 module.exports = router;

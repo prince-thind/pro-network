@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Comment = require("../models/Comment");
 const { validationResult } = require("express-validator");
 
 // @desc    Create a new post
@@ -147,7 +148,6 @@ exports.editPost = async (req, res) => {
     res.status(500).send("Server error");
   }
 };
-
 // DELETE /api/posts/:id
 // @access Private
 exports.deletePost = async (req, res) => {
@@ -168,7 +168,10 @@ exports.deletePost = async (req, res) => {
     // Delete the post
     await post.deleteOne();
 
-    res.json({ msg: "Post removed" });
+    // Delete all comments associated with this post
+    await Comment.deleteMany({ post: req.params.id });
+
+    res.json({ msg: "Post and associated comments removed" });
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");
