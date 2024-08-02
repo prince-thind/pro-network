@@ -10,7 +10,8 @@ const postInteractionController = require("../controllers/postInteractionControl
 // @access  Private
 router.post(
   "/",
-  [auth, [check("text", "Text is required").not().isEmpty()]],
+  check("title", "Title is required").not().isEmpty(),
+  check("text", "Text is required").not().isEmpty(),
   postController.createPost
 );
 
@@ -23,6 +24,11 @@ router.get("/", auth, postController.getPosts);
 // @desc    Get trending posts
 // @access  Public
 router.get("/trending", postController.getTrendingPosts);
+
+// @route   GET /api/posts/search
+// @desc    Search for posts
+// @access  Public
+router.get("/search/", postController.searchPosts);
 
 // @route   GET /api/posts/:id
 // @desc    Get post by ID
@@ -47,10 +53,5 @@ router.put("/unlike/:id", auth, postInteractionController.unlikePost);
 // @desc    Remove dislike from a post
 // @access  Private
 router.put("/undislike/:id", auth, postInteractionController.undislikePost);
-
-// @route   GET /api/posts/search
-// @desc    Search for posts
-// @access  Public
-router.get("/search", postController.searchPosts);
 
 module.exports = router;

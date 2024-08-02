@@ -4,18 +4,25 @@ const { validationResult } = require("express-validator");
 // @desc    Create a new post
 // @route   POST /api/posts
 // @access  Private
+// POST /api/posts
+// @access  Private
 exports.createPost = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { text } = req.body;
+  const { text, title, media, tags, visibility, location } = req.body;
 
   try {
     const newPost = new Post({
-      text,
       user: req.user.id,
+      text,
+      title,
+      media: media || [], // Default to an empty array if not provided
+      tags: tags || [], // Default to an empty array if not provided
+      visibility: visibility || "public", // Default to "public" if not provided
+      location: location || "", // Default to an empty string if not provided
     });
 
     const post = await newPost.save();
@@ -31,7 +38,7 @@ exports.createPost = async (req, res) => {
 // @access  Private
 exports.getPosts = async (req, res) => {
   try {
-    const posts = await Post.find().sort({ date: -1 });
+    const posts = await Post.find({ user: req.user.id }).sort({ date: -1 });
     res.json(posts);
   } catch (err) {
     console.error(err.message);
@@ -73,9 +80,7 @@ exports.searchPosts = async (req, res) => {
           },
         }
       : {};
-
     const posts = await Post.find({ ...keyword });
-    res.json(posts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server error");

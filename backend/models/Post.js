@@ -10,6 +10,20 @@ const PostSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
+  media: [
+    {
+      url: {
+        type: String,
+      },
+      type: {
+        type: String, // e.g., "image", "video"
+      },
+    },
+  ],
   date: {
     type: Date,
     default: Date.now,
@@ -27,6 +41,58 @@ const PostSchema = new mongoose.Schema({
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+      },
+    },
+  ],
+  tags: [
+    {
+      type: String,
+    },
+  ],
+  shares: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      date: {
+        type: Date,
+        default: Date.now,
+      },
+    },
+  ],
+  bookmarks: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    },
+  ],
+  visibility: {
+    type: String,
+    enum: ["public", "private", "friends"],
+    default: "public",
+  },
+  location: {
+    type: String,
+  },
+  edited: {
+    type: Boolean,
+    default: false,
+  },
+  reports: [
+    {
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+      reason: {
+        type: String,
+      },
+      date: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],
