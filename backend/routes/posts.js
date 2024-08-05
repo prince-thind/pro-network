@@ -75,4 +75,9 @@ router.get("/:id/comments", commentController.getComments);
 // @access  Private
 router.delete("/:id/comment/:commentId", commentController.deleteComment);
 
+// @route   POST /api/posts/:id/bookmark
+// @desc    Bookmark a post
+// @access  Private
+router.post("/:id/bookmark", postController.bookmarkPost);
+
 module.exports = router;

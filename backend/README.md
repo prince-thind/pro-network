@@ -38,8 +38,7 @@
 - [x] **POST** `/api/posts/:id/comment` - `commentController.addComment`: Add a comment
 - [x] **GET** `/api/posts/:id/comments` - `commentController.getComments`: Get comments for a post
 - [x] **DELETE** `/api/posts/:id/comment/:commentId` - `commentController.deleteComment`: Delete a comment
-- [ ] **POST** `/api/posts/:id/share` - `postController.sharePost`: Share a post
-- [ ] **POST** `/api/posts/:id/save` - `postController.savePost`: Save a post
+- [x] **POST** `/api/posts/:id/bookmark` - `postController.bookmarkPost`: Save a post
 - [ ] **GET** `/api/posts/search` - `postController.searchPosts`: Search posts by tags/keywords
 
 ### Notifications
